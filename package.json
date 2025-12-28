@@ -11,5 +11,12 @@
     "name": "NoixDeXydre",
     "email": "noixdexydre@mailfence.com",
     "url": "https://carter.games/savemanager"
-  }
+  },
+  "samples": [
+    {
+      "displayName": "Demo",
+      "description": "Demo of the Save Manager component",
+      "path": "Carter Games/Save Manager/Samples~"
+    }
+  ]
 }
