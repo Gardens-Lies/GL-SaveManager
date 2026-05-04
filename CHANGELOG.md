@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.5] - 2026-05-04
+
+### Fixed
+- Fixed an API bug where trying to get a save object for a particular slot would fail to get the information for the intended slot. [[KI-23](https://www.notion.so/cartergames/Save-slot-object-API-bug-356f72ed3eaf8090968ce05e64c00b05)]
+
 ## [3.0.4] - 2026-04-06
 
 ### Changed
