@@ -96,7 +96,7 @@ namespace CarterGames.Assets.SaveManager
         /// <returns>SlotSaveObject</returns>
         public static T GetSlotSaveObject<T>(int slotId) where T : SlotSaveObject
         {
-            var slot = SaveObjectController.AllSlotSaveObjects.FirstOrDefault(t => t.Key.SlotId != slotId).Key;
+            var slot = SaveObjectController.AllSlotSaveObjects.FirstOrDefault(t => t.Key.SlotId == slotId).Key;
             
             if (slot == null)
             {
