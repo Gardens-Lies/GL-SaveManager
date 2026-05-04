@@ -49,7 +49,7 @@ namespace CarterGames.Assets.SaveManager
 
             if (saveObject == null)
             {
-                SmDebugLogger.Log(SaveManagerErrorCode.NoGlobalSaveObjectOfType.GetErrorMessageFormat(nameof(T)));
+                SmDebugLogger.Log(SaveManagerErrorCode.NoGlobalSaveObjectOfType.GetErrorMessageFormat(typeof(T).Name));
                 return false;
             }
 
@@ -80,14 +80,14 @@ namespace CarterGames.Assets.SaveManager
 
             if (slotSaveObject == null)
             {
-                SmDebugLogger.Log(SaveManagerErrorCode.NoSlotSaveObjectOfType.GetErrorMessageFormat(nameof(T)));
+                SmDebugLogger.Log(SaveManagerErrorCode.NoSlotSaveObjectOfType.GetErrorMessageFormat(typeof(T).Name));
                 return false;
             }
 
             return true;
         }
-        
-        
+
+
         /// <summary>
         /// Gets a slot save object from a specific slot in the save setup.
         /// </summary>
@@ -97,15 +97,15 @@ namespace CarterGames.Assets.SaveManager
         public static T GetSlotSaveObject<T>(int slotId) where T : SlotSaveObject
         {
             var slot = SaveObjectController.AllSlotSaveObjects.FirstOrDefault(t => t.Key.SlotId == slotId).Key;
-            
+
             if (slot == null)
             {
-                SmDebugLogger.Log(SaveManagerErrorCode.NoSlotSaveObjectOfType.GetErrorMessageFormat(nameof(T)));
+                SmDebugLogger.Log(SaveManagerErrorCode.NoSlotSaveObjectOfType.GetErrorMessageFormat(typeof(T).Name));
                 return null;
             }
 
             return (T) SaveObjectController.AllSlotSaveObjects[slot].SlotSaveObjects
-                .FirstOrDefault(t => t.GetType() == typeof(T));
+            .FirstOrDefault(t => t.GetType() == typeof(T));
         }
 
 
@@ -122,7 +122,7 @@ namespace CarterGames.Assets.SaveManager
 
             if (saveObject == null)
             {
-                SmDebugLogger.Log(SaveManagerErrorCode.NoSlotSaveObjectOfType.GetErrorMessageFormat(nameof(T)));
+                SmDebugLogger.Log(SaveManagerErrorCode.NoSlotSaveObjectOfType.GetErrorMessageFormat(typeof(T).Name));
                 return false;
             }
 
