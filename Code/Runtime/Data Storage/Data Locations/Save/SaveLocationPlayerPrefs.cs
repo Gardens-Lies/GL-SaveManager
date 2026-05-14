@@ -14,11 +14,14 @@
  * If not, see <https://www.gnu.org/licenses/>. 
  */
 
+using UnityEngine.Scripting;
+
 namespace CarterGames.Assets.SaveManager
 {
     /// <summary>
     /// Handles saving game data to a player prefs.
     /// </summary>
+    [Preserve]
     public sealed class SaveLocationPlayerPrefs : ISaveDataLocation
     {
         /* ─────────────────────────────────────────────────────────────────────────────────────────────────────────────

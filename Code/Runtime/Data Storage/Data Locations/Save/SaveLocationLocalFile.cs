@@ -15,12 +15,14 @@
  */
 
 using CarterGames.Assets.SaveManager.Helpers;
+using UnityEngine.Scripting;
 
 namespace CarterGames.Assets.SaveManager
 {
     /// <summary>
     /// Handles saving game data to a local file.
     /// </summary>
+    [Preserve]
     public sealed class SaveLocationLocalFile : ISaveDataLocation
     {
         /* ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
