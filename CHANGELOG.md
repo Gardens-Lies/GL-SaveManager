@@ -7,8 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [3.0.6] - 2026-05-16
 
-### Fixed
+### Added
 - Added link.xml to preserve runtime code in the asset from stripping. Based on fix in [[GIT-PR#33](https://github.com/CarterGames/SaveManager/pull/33)].
+
+### Fixed
 - (Contribution: NoixDeXydre) Fixed possible null ref for backup handler if it ever happens [[GIT-PR#34](https://github.com/CarterGames/SaveManager/pull/34)].
 
 ## [3.0.5] - 2026-05-04
