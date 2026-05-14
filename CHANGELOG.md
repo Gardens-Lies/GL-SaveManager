@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.6] - 2026-05-16
+
+### Fixed
+- Added link.xml to preserve runtime code in the asset from stripping. Based on fix in [[GIT-PR#33](https://github.com/CarterGames/SaveManager/pull/33)].
+- (Contribution) Fixed possible null ref for backup handler if it ever happens [[GIT-PR#34](https://github.com/CarterGames/SaveManager/pull/34)].
+
 ## [3.0.5] - 2026-05-04
 
 ### Fixed
