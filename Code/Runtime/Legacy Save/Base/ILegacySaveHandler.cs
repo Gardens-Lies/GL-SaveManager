@@ -16,12 +16,14 @@
 
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using UnityEngine.Scripting;
 
 namespace CarterGames.Assets.SaveManager.Legacy
 {
     /// <summary>
     /// Implement to write a converter for a legacy 2.x save to turn in into a 3.x save structure.
     /// </summary>
+    [RequireImplementors]
     public interface ILegacySaveHandler
     {
         /// <summary>

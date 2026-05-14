@@ -15,12 +15,14 @@
  */
 
 using Newtonsoft.Json.Linq;
+using UnityEngine.Scripting;
 
 namespace CarterGames.Assets.SaveManager
 {
     /// <summary>
     /// Implemented to define a meta data element of the save.
     /// </summary>
+    [RequireImplementors]
     public interface ISaveMetaData
     {
         /// <summary>

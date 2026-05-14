@@ -14,11 +14,14 @@
  * If not, see <https://www.gnu.org/licenses/>. 
  */
 
+using UnityEngine.Scripting;
+
 namespace CarterGames.Assets.SaveManager
 {
     /// <summary>
     /// Implement to define a location to store data.
     /// </summary>
+    [RequireImplementors]
     public interface IDataLocation
     {
         /// <summary>
