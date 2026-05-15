@@ -118,9 +118,25 @@ namespace CarterGames.Shared.SaveManager
 			
 			try
 			{
-				return AssemblyHelper.GetClassesOfType<T>(false).FirstOrDefault(t =>
-					t.GetType().Assembly.FullName == Assembly && t.GetType().FullName == Type);
-			}
+                // We try first to resolve the type with his name :
+                // https://stackoverflow.com/questions/1825147/type-gettypenamespace-a-b-classname-returns-null
+                string assemblyQualifiedName = $"{Type}, {Assembly}";
+                Type targetType = System.Type.GetType(assemblyQualifiedName);
+
+                // If it failed, we use the fallback (without instantiation.)
+                if (targetType == null)
+                {
+                    targetType = AssemblyHelper.GetClassesNamesOfType<T>(false)
+                        .FirstOrDefault(t => t.Assembly.FullName == Assembly && t.FullName == Type);
+                }
+
+                if (targetType != null)
+                {
+                    return (T)Activator.CreateInstance(targetType);
+                }
+
+				return default;
+            }
 #pragma warning disable
 			catch (Exception e)
 			{
