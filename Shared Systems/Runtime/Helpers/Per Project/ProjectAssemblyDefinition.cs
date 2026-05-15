@@ -25,7 +25,7 @@ using System.Reflection;
 
 namespace CarterGames.Shared.SaveManager
 {
-    public static class ProjectAssemblyDefinition
+    internal static class ProjectAssemblyDefinition
     {
         public static Assembly[] ProjectEditorAssemblies { get; } = new Assembly[]
         {
