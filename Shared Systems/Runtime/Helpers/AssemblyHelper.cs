@@ -37,7 +37,7 @@ namespace CarterGames.Shared.SaveManager
         |   Fields
         ───────────────────────────────────────────────────────────────────────────────────────────────────────────── */
         
-        private static Assembly[] audioManagerAssemblies;
+        private static Assembly[] _cachedAssemblies;
         
         /* ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
         |   Properties
@@ -46,13 +46,13 @@ namespace CarterGames.Shared.SaveManager
         /// <summary>
         /// Gets all the cart assemblies to use when checking in internally only.
         /// </summary>
-        private static IEnumerable<Assembly> AudioManagerAssemblies
+        private static IEnumerable<Assembly> CachedAssemblies
         {
             get
             {
-                if (audioManagerAssemblies != null) return audioManagerAssemblies;
-                audioManagerAssemblies = GetAssemblies();
-                return audioManagerAssemblies;
+                if (_cachedAssemblies != null) return _cachedAssemblies;
+                _cachedAssemblies = GetAssemblies();
+                return _cachedAssemblies;
             }
         }
 
@@ -82,7 +82,7 @@ namespace CarterGames.Shared.SaveManager
         /// <returns>The total in the project.</returns>
         public static int CountClassesOfType<T>(bool internalCheckOnly = true)
         {
-            var assemblies = internalCheckOnly ? AudioManagerAssemblies : AppDomain.CurrentDomain.GetAssemblies();
+            var assemblies = internalCheckOnly ? CachedAssemblies : AppDomain.CurrentDomain.GetAssemblies();
                 
             return assemblies.SelectMany(x => x.GetTypes())
                 .Count(x => x.IsClass && typeof(T).IsAssignableFrom(x));
@@ -110,7 +110,7 @@ namespace CarterGames.Shared.SaveManager
         /// <returns>All the implementations of the entered class.</returns>
         public static IEnumerable<T> GetClassesOfType<T>(bool internalCheckOnly = true)
         {
-            var assemblies = internalCheckOnly ? AudioManagerAssemblies : AppDomain.CurrentDomain.GetAssemblies();
+            var assemblies = internalCheckOnly ? CachedAssemblies : AppDomain.CurrentDomain.GetAssemblies();
 
             return assemblies.SelectMany(x => x.GetTypes())
                 .Where(x => x.IsClass && typeof(T).IsAssignableFrom(x) && !x.IsAbstract && x.FullName != typeof(T).FullName)
@@ -126,7 +126,7 @@ namespace CarterGames.Shared.SaveManager
         /// <returns>All the implementations of the entered class.</returns>
         public static IEnumerable<Type> GetClassesNamesOfType<T>(bool internalCheckOnly = true)
         {
-            var assemblies = internalCheckOnly ? AudioManagerAssemblies : AppDomain.CurrentDomain.GetAssemblies();
+            var assemblies = internalCheckOnly ? CachedAssemblies : AppDomain.CurrentDomain.GetAssemblies();
 
             return assemblies.SelectMany(x => x.GetTypes())
                 .Where(x => x.IsClass && typeof(T).IsAssignableFrom(x) && x.FullName != typeof(T).FullName);
