@@ -138,7 +138,8 @@ namespace CarterGames.Shared.SaveManager
             // Searching all the implementation of the class
             var foundTypes = assemblies
                 .SelectMany(x => x.GetTypes())
-                .Where(x => x.IsClass && targetType.IsAssignableFrom(x) && x != targetType)
+                .Where(x => x.IsClass && !x.IsAbstract && !x.ContainsGenericParameters 
+                    && targetType.IsAssignableFrom(x) && x != targetType)
                 .ToList();
 
             // Caching for later
