@@ -27,6 +27,7 @@ namespace CarterGames.Shared.SaveManager
 {
     internal static class ProjectAssemblyDefinition
     {
+#if UNITY_EDITOR
         public static Assembly[] ProjectEditorAssemblies { get; } = new Assembly[]
         {
             Assembly.Load("CarterGames.SaveManager.Editor"),
@@ -34,11 +35,12 @@ namespace CarterGames.Shared.SaveManager
             Assembly.Load("CarterGames.Shared.SaveManager.Editor"),
             Assembly.Load("CarterGames.Shared.SaveManager")
         };
-
+#else
         public static Assembly[] ProjectRuntimeAssemblies { get; } = new Assembly[]
         {
             Assembly.Load("CarterGames.SaveManager.Runtime"),
             Assembly.Load("CarterGames.Shared.SaveManager")
         };
+#endif
     }
 }
