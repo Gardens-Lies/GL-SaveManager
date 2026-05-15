@@ -132,7 +132,8 @@ namespace CarterGames.Shared.SaveManager
             if (TypeCache.TryGetValue(targetType, out List<Type> cachedTypes))
                 return cachedTypes;
 
-            var assemblies = internalCheckOnly ? CachedAssemblies : AppDomain.CurrentDomain.GetAssemblies();
+            var assemblies = internalCheckOnly ? CachedAssemblies 
+                : UnityEngine.Assemblies.CurrentAssemblies.GetLoadedAssemblies();
 
             // Searching all the implementation of the class
             var foundTypes = assemblies
