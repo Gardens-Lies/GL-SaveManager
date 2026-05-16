@@ -14,11 +14,14 @@
  * If not, see <https://www.gnu.org/licenses/>. 
  */
 
+using UnityEngine.Scripting;
+
 namespace CarterGames.Assets.SaveManager
 {
     /// <summary>
     /// Implement to add logic before the save data before it is loaded.
     /// </summary>
+    [RequireImplementors]
     public interface IPreSaveDeserialize
     {
         /// <summary>

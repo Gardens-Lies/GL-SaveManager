@@ -15,9 +15,11 @@
  */
 
 using Newtonsoft.Json.Linq;
+using UnityEngine.Scripting;
 
 namespace CarterGames.Assets.SaveManager.Slots
 {
+    [RequireImplementors]
     public interface ISlotMetaData
     {
         /// <summary>

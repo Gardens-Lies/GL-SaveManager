@@ -14,11 +14,14 @@
  * If not, see <https://www.gnu.org/licenses/>. 
  */
 
+using UnityEngine.Scripting;
+
 namespace CarterGames.Assets.SaveManager.Encryption
 {
     /// <summary>
     /// Implement to add your own encryption setups for the save content data.
     /// </summary>
+    [RequireImplementors]
     public interface ISaveEncryptionHandler
     {
         /// <summary>
