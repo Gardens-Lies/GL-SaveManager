@@ -86,8 +86,8 @@ namespace CarterGames.Assets.SaveManager
 
             return true;
         }
-
-
+        
+        
         /// <summary>
         /// Gets a slot save object from a specific slot in the save setup.
         /// </summary>
@@ -97,7 +97,7 @@ namespace CarterGames.Assets.SaveManager
         public static T GetSlotSaveObject<T>(int slotId) where T : SlotSaveObject
         {
             var slot = SaveObjectController.AllSlotSaveObjects.FirstOrDefault(t => t.Key.SlotId == slotId).Key;
-
+            
             if (slot == null)
             {
                 SmDebugLogger.Log(SaveManagerErrorCode.NoSlotSaveObjectOfType.GetErrorMessageFormat(typeof(T).Name));
@@ -105,7 +105,7 @@ namespace CarterGames.Assets.SaveManager
             }
 
             return (T) SaveObjectController.AllSlotSaveObjects[slot].SlotSaveObjects
-            .FirstOrDefault(t => t.GetType() == typeof(T));
+                .FirstOrDefault(t => t.GetType() == typeof(T));
         }
 
 

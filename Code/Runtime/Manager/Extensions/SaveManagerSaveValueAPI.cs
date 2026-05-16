@@ -84,7 +84,7 @@ namespace CarterGames.Assets.SaveManager
 
             if (value == null)
             {
-                SmDebugLogger.LogError(SaveManagerErrorCode.NoSaveValueFound.GetErrorMessageFormat(saveKey, nameof(T)));
+                SmDebugLogger.LogError(SaveManagerErrorCode.NoSaveValueFound.GetErrorMessageFormat(saveKey, typeof(T).Name));
             }
             
             return value != null;
@@ -104,7 +104,7 @@ namespace CarterGames.Assets.SaveManager
             
             if (value == null)
             {
-                SmDebugLogger.LogError(SaveManagerErrorCode.NoSaveValueFound.GetErrorMessageFormat(saveKey, nameof(T)));
+                SmDebugLogger.LogError(SaveManagerErrorCode.NoSaveValueFound.GetErrorMessageFormat(saveKey, typeof(T).Name));
             }
             
             return value != null;
@@ -124,7 +124,7 @@ namespace CarterGames.Assets.SaveManager
             
             if (value == null)
             {
-                SmDebugLogger.LogError(SaveManagerErrorCode.NoSaveValueFound.GetErrorMessageFormat(saveKey, nameof(T)));
+                SmDebugLogger.LogError(SaveManagerErrorCode.NoSaveValueFound.GetErrorMessageFormat(saveKey, typeof(T).Name));
             }
             
             return value != null;

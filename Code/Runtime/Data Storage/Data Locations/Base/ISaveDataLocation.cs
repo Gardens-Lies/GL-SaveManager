@@ -14,6 +14,8 @@
  * If not, see <https://www.gnu.org/licenses/>. 
  */
 
+using UnityEngine.Scripting;
+
 namespace CarterGames.Assets.SaveManager
 {
     /// <summary>
@@ -22,6 +24,7 @@ namespace CarterGames.Assets.SaveManager
     /// <remarks>
     /// Requires an IDataLocation implementation to go along with it if it is at a new location setup.
     /// </remarks>
+    [RequireImplementors]
     public interface ISaveDataLocation
     {
         /// <summary>

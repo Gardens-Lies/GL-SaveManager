@@ -14,11 +14,14 @@
  * If not, see <https://www.gnu.org/licenses/>. 
  */
 
+using UnityEngine.Scripting;
+
 namespace CarterGames.Assets.SaveManager
 {
     /// <summary>
     /// Defines an save listener implementation.
     /// </summary>
+    [RequireImplementors]
     public interface IGameSaveListener
     {
         /* —————————————————————————————————————————————————————————————————————————————————————————————————————————————

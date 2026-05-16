@@ -16,12 +16,14 @@
 
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using UnityEngine.Scripting;
 
 namespace CarterGames.Assets.SaveManager.Backups
 {
     /// <summary>
     /// Implement to make a save backup location to store game backups.
     /// </summary>
+    [RequireImplementors]
     public interface ISaveBackupLocation
     {
         /// <summary>

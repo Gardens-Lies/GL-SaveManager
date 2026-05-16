@@ -17,12 +17,14 @@
 
 using System;
 using Newtonsoft.Json;
+using UnityEngine.Scripting;
 
 namespace CarterGames.Assets.SaveManager
 {
     /// <summary>
     /// Implement to define a json converter that the asset should use.
     /// </summary>
+    [RequireImplementors]
     public interface IAssetJsonConverter
     {
         /// <summary>

@@ -44,6 +44,12 @@ namespace CarterGames.Assets.SaveManager.Backups
             }
             
             var handler = SmAssetAccessor.GetAsset<DataAssetSettings>().BackupLocation;
+            if (handler == null)
+            {
+                SmDebugLogger.LogDev("Save Backup Manager: Cannot backup as the backup location isn't set.");
+                return;
+            }
+
             var firstBackup = handler.GetBackups().FirstOrDefault();
             
             // Avoids making a backup if the data is exactly the same as before.
@@ -73,7 +79,14 @@ namespace CarterGames.Assets.SaveManager.Backups
         /// <returns>If it was successful or not.</returns>
         public static bool TryRestoreFromBackups()
         {
-            var backups = SmAssetAccessor.GetAsset<DataAssetSettings>().BackupLocation.GetBackups().ToArray();
+            var handler = SmAssetAccessor.GetAsset<DataAssetSettings>().BackupLocation;
+            if (handler == null)
+            {
+                SmDebugLogger.LogWarning(SaveManagerErrorCode.BackupRestoreFailed.GetErrorMessageFormat());
+                return false;
+            }
+
+            var backups = handler.GetBackups().ToArray();
             
             for (var i = 0; i < SmAssetAccessor.GetAsset<DataAssetSettings>().MaxBackups; i++)
             {
