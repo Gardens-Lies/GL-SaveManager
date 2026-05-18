@@ -38,15 +38,15 @@ namespace CarterGames.Assets.SaveManager
         /// Raises when the save manager is initialized.
         /// </summary>
         public static Evt InitializedEvt = new Evt();
-        
+
         /* ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
         |   Methods
         ───────────────────────────────────────────────────────────────────────────────────────────────────────────── */
-        
+
         /// <summary>
         /// Runs Save Manager initialization when called.
         /// </summary>
-        [RuntimeInitializeOnLoadMethod]
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
         public static void InitializeSaveManagerRuntimeSetup()
         {
             if (IsInitialized) return;
