@@ -1,9 +1,45 @@
-The save manager is a flexible & modular save system for the Unity game engine with a
-built-in save editor to edit the save without needing to open the save file itself.
+## Locale
+- [EN](Docs_EN.md)
+
+## Docs
+- [Usage Documentation](Docs_EN.md)
+- [Scripting API](Scripting_EN.md)
+- [Listener API](Listeners_EN.md)
+- [Extension API](Extension_EN.md)
+
+## Contents
+- [Dependencies](#dependencies-)
+- [Initial Set-up](#initial-set-up-)
+- [Asset Settings](#asset-settings-)
+- [Navigation Menu Options](#navigation-menu-options-)
+- [Save Objects](#save-objects-)
+- [Save Values](#save-values-)
+- [Save Locations](#save-locations-)
+  - [Editor Save](#editor-save-)
+- [Save Structure](#save-structure-)
+  - [Json Converters](#json-converters-)
+  - [Meta data](#meta-data-)
+- [Save Editor](#save-editor-)
+  - [Save Object & Values GUI](#save-object--values-gui-)
+  - [Save Categories](#save-categories-)
+  - [Save Slots](#save-slots-)
+  - [Reset Save Data](#reset-save-data-)
+- [Save Captures](#save-captures-)
+- [Save Backups](#save-backups-)
+- [Save Encryption](#save-encryption-)
+- [Legacy (2.x) Save Porting](#legacy-2x-save-porting-)
+- [Pre Data Load Intercept](#pre-data-load-intercept-)
+- [Json Parsing](#json-parsing-)
+- [Support](#support-)
+  - [Help](#help-)
+  - [Bug Reporting](#bug-reporting-)
 
 <br/>
 
-## Dependencies
+The save manager is a flexible & modular save system for the Unity game engine with a
+built-in save editor to edit the save without needing to open the save file itself.
+
+## Dependencies [^](#contents)
 The save manager requires the `Newtonsoft Json` package to function. This can be added
 to your project for free by adding the following package in the package manager from
 inside a Unity project: 
@@ -18,14 +54,14 @@ option in unity’s package manager to add it to the project.
 
 <br/>
 
-## Initial Set-up
+## Initial Set-up [^](#contents)
 There isn’t any set-up steps bar importing the package. Any required steps are
 automatically handled for you. All you need to do is define the save data so the asset can
 save it for you.
 
 <br/>
 
-## Asset Settings
+## Asset Settings [^](#contents)
 All the asset settings can be found in the project settings menu under:
 
 ```
@@ -63,11 +99,11 @@ A run-down of all the available settings below:
 
 <br/>
 
-## Navigation Menu Options
+## Navigation Menu Options [^](#contents)
 The nav menu gives you some quick asset to useful features as well as the assets editor
 windows etc.
 
-![nav_menu_options](img/nav_menu_options.png)
+![nav_menu_options](../_img/nav_menu_options.png)
 
 | Option | Description                                                                                           |
 | :----- |:------------------------------------------------------------------------------------------------------|
@@ -81,7 +117,7 @@ windows etc.
 
 <br/>
 
-## Save Objects
+## Save Objects [^](#contents)
 A save object is basically a scriptable object that can store save values on it. When
 defined the save values on each object can be access in the editor and at runtime with
 ease. To make a save object you just need to make a class that implements the
@@ -95,7 +131,7 @@ you can use the built-in SaveObject maker GUI. This can be found under:
 Tools > Carter Games > Save Manager > Save Object Creator
 ```
 
-![save_object_creator](img/save_object_creator.png)
+![save_object_creator](../_img/save_object_creator.png)
 
 The save object creator window has a really simple set-up. You first enter the name of the
 class you want to make into the `Save Object Name` field on the GUI. Then if you have the
@@ -110,11 +146,11 @@ All correctly set-up save values can be viewed in the `Save Editor` window. Eith
 the `Global Data` or `Save Slots` tab dependent on which `Save Object` class it is under. An
 example from the example save data:
 
-![save_object_editor](img/save_object_editor.png)
+![save_object_editor](../_img/save_object_editor.png)
 
 <br/>
 
-## Save Values
+## Save Values [^](#contents)
 A save value defines an entry in the game save. You define save values by using the generic save value class `SaveValue<T>` as a field on in a `SaveObject` class. A valid save value **MUST**:
 - Be placed inside a class that inherits from `SaveObject`/`SlotSaveObject`, if not it will not function correctly.
 - Be of a serializable type.
@@ -130,7 +166,7 @@ An example of a defined save value below:
 
 <br/>
 
-## Save Locations
+## Save Locations [^](#contents)
 The asset provides a couple different save locations to use. These are:
 
 | Location | Description                                                                          | 
@@ -156,14 +192,14 @@ A change in location will be handled on the next load if the previous is differe
 
 <br/>
 
-### Editor Save
+### Editor Save [^](#contents)
 The editor has a separate save file to your built runtime. This is so you can edit the save in
 the editor freely without conflict with a build version of your game on the same machine.
 The editor save will be stored in your projects persistent data path under the `/EditorSave`
 folder. This can be accessed from the asset settings open folder option next to the editor
 save path label:
 
-![editor_save](img/editor_save_settings.png)
+![editor_save](../_img/editor_save_settings.png)
 
 The editor save will update on certain conditions to avoid performance hits when making edits. These are:
 - Saving the project.
@@ -175,7 +211,7 @@ The editor save will also only save when there are changes to be saved.
 
 <br/>
 
-## Save Structure
+## Save Structure [^](#contents)
 The 3.x save structure divides the content of the save into a few different sections. The
 main game save is stored under the `$content` tag. It is then split the following:
 
@@ -256,7 +292,7 @@ An example of a populated save data from the simple sample scene below:
 
 <br/>
 
-### Json Converters
+### Json Converters [^](#contents)
 The save manager set-up automatically saves any serializable fields which are either:
 - public exposed fields
 - [SerializeField] private fields
@@ -270,7 +306,7 @@ from the `SmJsonConverterBase<T>` class.
 
 <br/>
 
-### Meta-data
+### Meta-data [^](#contents)
 Meta-data is extra data that is added to a separate section of the game save. The purpose
 is to show important info such as game version & basic system info to aid with debugging
 etc. This section of the save is never encrypted, so it is always readable. If no meta-data
@@ -286,7 +322,7 @@ class that implements the `ISaveMetaData` interface.
 
 <br/>
 
-## Save Editor
+## Save Editor [^](#contents)
 The save editor is the intended way for you to edit the save of your game. You can open
 the save editor window from the navigation menu’s **Save Editor** option.
 
@@ -305,37 +341,37 @@ The save editor is split into 4 tabs:
 
 <br/>
 
-### Save Object & Values GUI
+### Save Object & Values GUI [^](#contents)
 In the save editor GUI each save object is its own drop-down group labelled the save as
 the save objects class name. If there are any issues with a save value under a save object
 you will see a warning GUI over it like so:
 
-![flagged_save_object](img/flagged_save_object.png)
+![flagged_save_object](../_img/flagged_save_object.png)
 
 When you expand a save object in the editor you’ll see drop-downs for all the save values
 defined on that save object. Expanding any of these will reveal the value currently stored
 on that save value for you to edit:
 
-![save_object_expanded](img/save_object_expanded.png)
+![save_object_expanded](../_img/save_object_expanded.png)
 
 Any edits made to save values here will apply when the editor save next updates. You can
 press the red minus button next to and save object or save value to reset it to its default
 value. You will be asked through an editor dialogue to confirm this action.
 
-![save_object_reset](img/save_object_reset.png)
+![save_object_reset](../_img/save_object_reset.png)
 
 <br/>
 
-### Save Categories
+### Save Categories [^](#contents)
 Any save objects that are defined with the `SaveCategory` attribute on them will appear
 under the categories section instead of the uncategorized section above it. If multiple save
 objects are in the same category, they will appear together under the same drop-down.
 
-![save_categories](img/save_categories.png)
+![save_categories](../_img/save_categories.png)
 
 <br/>
 
-### Save Slots
+### Save Slots [^](#contents)
 Save slots are displayed with each slot being its own drop-down in the save slot stab.
 Slots will have the last time they were saved as well as their total active playtime stored as
 read-only data in the save editor. These are just slot data the asset automatically stores for
@@ -343,29 +379,29 @@ each slot and you should need to touch them. Underneath you’ll see the save da
 which matches when expanded works just like the global tab with save object / save
 values for that slot appearing underneath for editing.
 
-![save_slot_info](img/save_slot_info.png)
+![save_slot_info](../_img/save_slot_info.png)
 
 You can reset the meta-data for a slot with the relevant button on the slot.
 
-![save_slot_reset_meta](img/save_slot_reset_meta.png)
+![save_slot_reset_meta](../_img/save_slot_reset_meta.png)
 
 Pressing the red minus button on the slot itself will delete the slot completely. You will be
 prompted to confirm this action. You can also add new slots in the editor with the add slot
 button. Note that at runtime a user will not have any slots. This only works for editor
 purposes to aid with testing etc.
 
-![save_slot_add_slot](img/save_slot_add_slot.png)
+![save_slot_add_slot](../_img/save_slot_add_slot.png)
 
 <br/>
 
-### Reset Save Data
+### Reset Save Data [^](#contents)
 You can reset all save data from the global or slots tabs in the save editor. There is a big
 reset save button at the bottom of the GUI. You will be prompted to confirm this action
 before it is performed.
 
 <br/>
 
-## Save Captures
+## Save Captures [^](#contents)
 Save captures are save files that are stored in a text file in the project for you to load from
 at any time. They are good for when you need a backup of a game save state the can be
 shared and tested with in the editor.
@@ -378,7 +414,7 @@ Assets > Plugins > Carter Games > Save Manager > Captures
 
 You can make captures from the **save editor**
 
-![save_captures](img/save_captures.png)
+![save_captures](../_img/save_captures.png)
 
 Here you can make new captures and manage them. You can make a capture of the
 current editor save with the top GUI. Simply enter a name for the capture and press the
@@ -395,7 +431,7 @@ display the following options:
 
 <br/>
 
-## Save Backups
+## Save Backups [^](#contents)
 The asset will automatically store one or several backups of your save data when it loads
 without errors when the data is different to the last stored in a backup. In the event a save
 fails to load it will instead try to load a backup. If all backups fail to load you’ll get an
@@ -404,7 +440,7 @@ fails to load it will instead try to load a backup. If all backups fail to load 
 You can view save backups from the editor with the save editor window in the save
 backups tab:
 
-![save_backups](img/save_backups.png)
+![save_backups](../_img/save_backups.png)
 
 Here you can view the backups and perform a few actions:
 
@@ -416,7 +452,7 @@ Here you can view the backups and perform a few actions:
 
 <br/>
 
-## Save Encryption
+## Save Encryption [^](#contents)
 You can encrypt the save content with the built-in set-up. This will encrypt the
 content data only. So meta-data will still be readable as this is intended for read-only info.
 By default, this set-up is disabled.
@@ -432,7 +468,7 @@ more dependencies or more complex set-ups.
 
 <br/>
 
-## Legacy (2.x) Save Porting
+## Legacy (2.x) Save Porting [^](#contents)
 The asset comes with a basic set-up that should port and 2.x save data into 3.x global
 save data where the keys & types match between versions. It won’t work for slot save data
 due to the legacy set-up not supporting such a feature.
@@ -446,7 +482,7 @@ make a class implementing the `ILegacySaveHandler` interface.
 
 <br/>
 
-## Pre Data Load Intercept
+## Pre Data Load Intercept [^](#contents)
 You can add logic before the game loads new data from the save by making a class that
 implements the `IPreSaveDeserialize` interface. This lets you edit the Json from the save
 before it is converted into Json object to load it into the game. This is mainly useful for
@@ -455,7 +491,7 @@ the loading process easily. Use at your own risk.
 
 <br/>
 
-## Json Parsing
+## Json Parsing [^](#contents)
 The asset is using the standard **_Newtonsoft Json_** parsing for Json with a few custom
 edits. These being:
 - Only public or [SerializeField] private fields will be captured by the save manager for
@@ -476,15 +512,15 @@ edits. These being:
 
 <br/>
 
-## Support
-### Help
+## Support [^](#contents)
+### Help [^](#contents)
 I try to respond to queries as within 24 hours, but I am only 1 person. So bear with me if I don’t
 mange this. I may be busy. Should you need any help with the asset, you can reach me by the
 following channels:
 - General contact form: https://carter.games/contact/
 - Direct email: [hello@carter.games](mailto:hello@carter.games?subject=Save Manager 3.x Help)
 
-### Bug Reporting
+### Bug Reporting [^](#contents)
 Found an issue? Report it via the following channels. Bugs will be corrected as soon as possible if
 deemed major. Minor issues may take a little time to resolve. I do this for free after all:
 - Bug reporting form: https://carter.games/report/
