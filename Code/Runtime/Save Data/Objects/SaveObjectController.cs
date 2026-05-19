@@ -148,8 +148,13 @@ namespace CarterGames.Assets.SaveManager
             AllGlobalSaveObjects = new List<SaveObject>();
             AllGlobalSaveValues = new Dictionary<SaveObject, List<SaveValueBase>>();
 
-            var objTypes = AppDomain.CurrentDomain.GetAssemblies()
-                .SelectMany(x => x.GetTypes())
+#if UNITY_6000_0_OR_NEWER
+            var assemblies = UnityEngine.Assemblies.CurrentAssemblies.GetLoadedAssemblies();
+#else
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+#endif
+
+            var objTypes = assemblies.SelectMany(x => x.GetTypes())
                 .Where(x => x.IsClass && typeof(SaveObject).IsAssignableFrom(x) && !x.IsAbstract && x.FullName != typeof(SaveObject).FullName)
                 .Select(type => (SaveObject)ScriptableObject.CreateInstance(type))
                 .Select(t => t.GetType())

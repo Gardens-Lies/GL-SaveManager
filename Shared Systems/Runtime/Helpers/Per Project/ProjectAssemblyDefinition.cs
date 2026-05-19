@@ -25,33 +25,22 @@ using System.Reflection;
 
 namespace CarterGames.Shared.SaveManager
 {
-    public static class ProjectAssemblyDefinition
+    internal static class ProjectAssemblyDefinition
     {
-        public static Assembly[] ProjectEditorAssemblies
+#if UNITY_EDITOR
+        public static Assembly[] ProjectEditorAssemblies { get; } = new Assembly[]
         {
-            get
-            {
-                return new Assembly[]
-                {
-                    Assembly.Load("CarterGames.SaveManager.Editor"),
-                    Assembly.Load("CarterGames.SaveManager.Runtime"),
-                    Assembly.Load("CarterGames.Shared.SaveManager.Editor"),
-                    Assembly.Load("CarterGames.Shared.SaveManager")
-                };
-            }
-        }
-        
-        
-        public static Assembly[] ProjectRuntimeAssemblies
+            Assembly.Load("CarterGames.SaveManager.Editor"),
+            Assembly.Load("CarterGames.SaveManager.Runtime"),
+            Assembly.Load("CarterGames.Shared.SaveManager.Editor"),
+            Assembly.Load("CarterGames.Shared.SaveManager")
+        };
+#else
+        public static Assembly[] ProjectRuntimeAssemblies { get; } = new Assembly[]
         {
-            get
-            {
-                return new Assembly[]
-                {
-                    Assembly.Load("CarterGames.SaveManager.Runtime"),
-                    Assembly.Load("CarterGames.Shared.SaveManager")
-                };
-            }
-        }
+            Assembly.Load("CarterGames.SaveManager.Runtime"),
+            Assembly.Load("CarterGames.Shared.SaveManager")
+        };
+#endif
     }
 }
