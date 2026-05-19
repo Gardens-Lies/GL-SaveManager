@@ -7,6 +7,11 @@
 - [Listener API](Listeners_EN.md)
 - [Extension API](Extension_EN.md)
 
+<br/>
+
+The save manager is a flexible & modular save system for the Unity game engine with a
+built-in save editor to edit the save without needing to open the save file itself.
+
 ## Contents
 - [Dependencies](#dependencies-)
 - [Initial Set-up](#initial-set-up-)
@@ -35,9 +40,6 @@
   - [Bug Reporting](#bug-reporting-)
 
 <br/>
-
-The save manager is a flexible & modular save system for the Unity game engine with a
-built-in save editor to edit the save without needing to open the save file itself.
 
 ## Dependencies [^](#contents)
 The save manager requires the `Newtonsoft Json` package to function. This can be added
@@ -124,7 +126,7 @@ ease. To make a save object you just need to make a class that implements the
 `SaveObject` class, or `SlotSaveObject` class if you want the data to be specifically used in
 save slots.
 
-You can do this manually by making a class that inherits from the SaveObject clases or
+You can do this manually by making a class that inherits from the SaveObject classes or
 you can use the built-in SaveObject maker GUI. This can be found under:
 
 ```

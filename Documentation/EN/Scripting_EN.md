@@ -7,6 +7,12 @@
 - [Listener API](Listeners_EN.md)
 - [Extension API](Extension_EN.md)
 
+<br/>
+
+Below is a small summary of the main API you’ll be accessing from the asset. Note that
+I’ve only included the intended API for you to use and not every public property and/or
+method.
+
 ## Contents
 - [Save Manager](#savemanagercs-)
   - Properties
@@ -82,12 +88,6 @@
     - [SlotId](#slotid-)
     - [LastSaveDate](#lastsavedate-)
     - [Playtime](#playtime-)
-
-<br/>
-
-Below is a small summary of the main API you’ll be accessing from the asset. Note that
-I’ve only included the intended API for you to use and not every public property and/or
-method.
 
 <br/>
 

@@ -7,14 +7,14 @@
 - [Listener API](Listeners_EN.md)
 - [Extension API](Extension_EN.md)
 
-## Contents
-- [IGameSaveListener](#dependencies-)
-- [IGameLoadListener](#dependencies-)
-
 <br/>
 
 You can listen to some of the assets set-up by implementing specific interfaces without needing any
 extra logic, these are:
+
+## Contents
+- [IGameSaveListener](#igamesavelistener-)
+- [IGameLoadListener](#igameloadlistener-)
 
 ### `IGameSaveListener` [^](#contents)
 Implement to list to when the game saving is called to start and completed.

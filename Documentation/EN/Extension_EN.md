@@ -9,11 +9,11 @@
 
 <br/>
 
-You can extend the save manager by making your own implementations for core features of the
+You can extend the save manager by making your own implementations of core features for the
 asset to use. These can then be selected in the asset settings so the asset uses them over the default
-provided options. It is recommended you test any custom implementations well before releasing
+provided options. It is recommended that you test any custom implementations before releasing
 them for public use in-case of issues. When developing any custom locations or encryption set-ups
-it is advised to save a backup of your game data to a alternative location so you can restore it should
+it is advised to save a backup of your game data to an alternative location, so you can restore it should
 issues arise.
 
 ## Contents
@@ -475,7 +475,7 @@ public sealed class SaveEncryptionBasicAes : ISaveEncryptionHandler
 Implement this abstract class to add your own json converters so the save manager can use them
 when saving your data. By default, all public fields or private fields with the [SerializeField]
 attribute will be saved if possible. You should implement a custom converter if a custom type is not
-saving correctly or you need to save a Unity type that is not saving correctly in the current set-up.
+saving correctly, or if you need to save a Unity type that is not saving correctly in the current set-up.
 
 ### Methods
 
@@ -545,7 +545,7 @@ public sealed class JsonConverterVector2 : SmJsonConverterBase<Vector2>
 <br/>
 
 ### `ISaveMetaData` [^](#contents)
-Implement to define extra data that is added to the $metadata tag in the save data structure. This is
+Implement to define extra data that is added to the `$metadata` tag in the save data structure. This is
 read-only and is mainly intended to aid in context info for debugging etc.
 
 ### Properties
