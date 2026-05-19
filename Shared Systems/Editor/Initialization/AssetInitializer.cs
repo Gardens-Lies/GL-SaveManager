@@ -81,7 +81,7 @@ namespace CarterGames.Shared.SaveManager.Editor
         /// </summary>
         private static async void InitializeEditorClasses()
         {
-            var initClasses = AssemblyHelper.GetClassesOfType<IAssetEditorInitialize>();
+            var initClasses = AssemblyHelper.GetClassesOfType<IAssetEditorInitialize>(true);
 
             foreach (var init in initClasses.OrderBy(t => t.InitializeOrder))
             {

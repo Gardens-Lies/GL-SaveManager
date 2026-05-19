@@ -84,7 +84,7 @@ namespace CarterGames.Shared.SaveManager.Editor
         {
             if (HasProcessed) return;
             
-            var fileChangeClasses = AssemblyHelper.GetClassesOfType<IAssetEditorFileChanges>();
+            var fileChangeClasses = AssemblyHelper.GetClassesOfType<IAssetEditorFileChanges>(true);
 
             foreach (var init in fileChangeClasses)
             {

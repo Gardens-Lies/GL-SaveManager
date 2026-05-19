@@ -89,7 +89,7 @@ namespace CarterGames.Shared.SaveManager.Editor
         /// </summary>
         private static async void CallListeners()
         {
-            var reloadClasses = AssemblyHelper.GetClassesOfType<IAssetEditorReload>();
+            var reloadClasses = AssemblyHelper.GetClassesOfType<IAssetEditorReload>(true);
 
             foreach (var init in reloadClasses)
             {

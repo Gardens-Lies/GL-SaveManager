@@ -41,9 +41,9 @@ namespace CarterGames.Shared.SaveManager
         /// It is intended to use this cache to avoid the use
         /// of <see cref="Assembly.GetTypes"/> in each call.
         /// </summary>
-        private static readonly Dictionary<Type, List<Type>> TypeCache = new();
+        private static readonly Dictionary<Type, List<Type>> TypeCache = new Dictionary<Type, List<Type>>();
 
-        private static Assembly[] _cachedAssemblies;
+        private static Assembly[] cachedAssemblies;
 
         /* ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
         |   Properties
@@ -56,9 +56,9 @@ namespace CarterGames.Shared.SaveManager
         {
             get
             {
-                if (_cachedAssemblies != null) return _cachedAssemblies;
-                _cachedAssemblies = GetAssemblies();
-                return _cachedAssemblies;
+                if (cachedAssemblies != null) return cachedAssemblies;
+                cachedAssemblies = GetAssemblies();
+                return cachedAssemblies;
             }
         }
 
@@ -86,22 +86,9 @@ namespace CarterGames.Shared.SaveManager
         /// <param name="internalCheckOnly">Check internally to the asset only.</param>
         /// <typeparam name="T">The type to find.</typeparam>
         /// <returns>The total in the project.</returns>
-        public static int CountClassesOfType<T>(bool internalCheckOnly = true)
+        public static int CountClassesOfType<T>(bool internalCheckOnly = false)
         {
             return GetClassesNamesOfType<T>(internalCheckOnly).Count();
-        }
-        
-        
-        /// <summary>
-        /// Gets the number of classes of the requested type in the project.
-        /// </summary>
-        /// <param name="assemblies">The assemblies to check through.</param>
-        /// <typeparam name="T">The type to find.</typeparam>
-        /// <returns>The total in the project.</returns>
-        public static int CountClassesOfType<T>(params Assembly[] assemblies)
-        {
-            return assemblies.SelectMany(x => x.GetTypes())
-                .Count(x => x.IsClass && typeof(T).IsAssignableFrom(x));
         }
         
         
@@ -111,7 +98,7 @@ namespace CarterGames.Shared.SaveManager
         /// <param name="internalCheckOnly">Check internally to the asset only.</param>
         /// <typeparam name="T">The type to find.</typeparam>
         /// <returns>All the implementations of the entered class.</returns>
-        public static IEnumerable<T> GetClassesOfType<T>(bool internalCheckOnly = true)
+        public static IEnumerable<T> GetClassesOfType<T>(bool internalCheckOnly = false)
         {
             return GetClassesNamesOfType<T>(internalCheckOnly)
                 .Select(type => (T)Activator.CreateInstance(type));
@@ -124,13 +111,12 @@ namespace CarterGames.Shared.SaveManager
         /// <param name="internalCheckOnly">Check internally to the asset only.</param>
         /// <typeparam name="T">The type to find.</typeparam>
         /// <returns>All the implementations of the entered class.</returns>
-        public static IEnumerable<Type> GetClassesNamesOfType<T>(bool internalCheckOnly = true)
+        public static IEnumerable<Type> GetClassesNamesOfType<T>(bool internalCheckOnly = false)
         {
             Type targetType = typeof(T);
 
             // We don't need to search in the project / assembly if we already know the type.
-            if (TypeCache.TryGetValue(targetType, out List<Type> cachedTypes))
-                return cachedTypes;
+            if (TypeCache.TryGetValue(targetType, out List<Type> cachedTypes)) return cachedTypes;
 
 #if UNITY_6000_0_OR_NEWER
             var assemblies = internalCheckOnly ? CachedAssemblies
@@ -151,20 +137,6 @@ namespace CarterGames.Shared.SaveManager
             TypeCache[targetType] = foundTypes;
 
             return foundTypes;
-        }
-
-
-        /// <summary>
-        /// Gets all the classes of the entered type in the project.
-        /// </summary>
-        /// <param name="assemblies">The assemblies to check through.</param>
-        /// <typeparam name="T">The type to find.</typeparam>
-        /// <returns>All the implementations of the entered class.</returns>
-        public static IEnumerable<T> GetClassesOfType<T>(params Assembly[] assemblies)
-        {
-            return assemblies.SelectMany(x => x.GetTypes())
-                .Where(x => x.IsClass && typeof(T).IsAssignableFrom(x) && x.FullName != typeof(T).FullName)
-                .Select(type => (T)Activator.CreateInstance(type));
         }
     }
 }
