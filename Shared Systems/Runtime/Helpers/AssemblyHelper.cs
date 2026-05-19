@@ -36,23 +36,29 @@ namespace CarterGames.Shared.SaveManager
         /* ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
         |   Fields
         ───────────────────────────────────────────────────────────────────────────────────────────────────────────── */
-        
-        private static Assembly[] audioManagerAssemblies;
-        
+
+        /// <summary>
+        /// It is intended to use this cache to avoid the use
+        /// of <see cref="Assembly.GetTypes"/> in each call.
+        /// </summary>
+        private static readonly Dictionary<Type, List<Type>> TypeCache = new();
+
+        private static Assembly[] _cachedAssemblies;
+
         /* ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
         |   Properties
         ───────────────────────────────────────────────────────────────────────────────────────────────────────────── */
-        
+
         /// <summary>
         /// Gets all the cart assemblies to use when checking in internally only.
         /// </summary>
-        private static IEnumerable<Assembly> AudioManagerAssemblies
+        private static IEnumerable<Assembly> CachedAssemblies
         {
             get
             {
-                if (audioManagerAssemblies != null) return audioManagerAssemblies;
-                audioManagerAssemblies = GetAssemblies();
-                return audioManagerAssemblies;
+                if (_cachedAssemblies != null) return _cachedAssemblies;
+                _cachedAssemblies = GetAssemblies();
+                return _cachedAssemblies;
             }
         }
 
@@ -82,10 +88,7 @@ namespace CarterGames.Shared.SaveManager
         /// <returns>The total in the project.</returns>
         public static int CountClassesOfType<T>(bool internalCheckOnly = true)
         {
-            var assemblies = internalCheckOnly ? AudioManagerAssemblies : AppDomain.CurrentDomain.GetAssemblies();
-                
-            return assemblies.SelectMany(x => x.GetTypes())
-                .Count(x => x.IsClass && typeof(T).IsAssignableFrom(x));
+            return GetClassesNamesOfType<T>(internalCheckOnly).Count();
         }
         
         
@@ -110,14 +113,11 @@ namespace CarterGames.Shared.SaveManager
         /// <returns>All the implementations of the entered class.</returns>
         public static IEnumerable<T> GetClassesOfType<T>(bool internalCheckOnly = true)
         {
-            var assemblies = internalCheckOnly ? AudioManagerAssemblies : AppDomain.CurrentDomain.GetAssemblies();
-
-            return assemblies.SelectMany(x => x.GetTypes())
-                .Where(x => x.IsClass && typeof(T).IsAssignableFrom(x) && !x.IsAbstract && x.FullName != typeof(T).FullName)
+            return GetClassesNamesOfType<T>(internalCheckOnly)
                 .Select(type => (T)Activator.CreateInstance(type));
         }
-        
-        
+
+
         /// <summary>
         /// Gets all the classes of the entered type in the project.
         /// </summary>
@@ -126,13 +126,34 @@ namespace CarterGames.Shared.SaveManager
         /// <returns>All the implementations of the entered class.</returns>
         public static IEnumerable<Type> GetClassesNamesOfType<T>(bool internalCheckOnly = true)
         {
-            var assemblies = internalCheckOnly ? AudioManagerAssemblies : AppDomain.CurrentDomain.GetAssemblies();
+            Type targetType = typeof(T);
 
-            return assemblies.SelectMany(x => x.GetTypes())
-                .Where(x => x.IsClass && typeof(T).IsAssignableFrom(x) && x.FullName != typeof(T).FullName);
+            // We don't need to search in the project / assembly if we already know the type.
+            if (TypeCache.TryGetValue(targetType, out List<Type> cachedTypes))
+                return cachedTypes;
+
+#if UNITY_6000_0_OR_NEWER
+            var assemblies = internalCheckOnly ? CachedAssemblies
+                : UnityEngine.Assemblies.CurrentAssemblies.GetLoadedAssemblies();
+#else
+            var assemblies = internalCheckOnly ? CachedAssemblies
+                : AppDomain.CurrentDomain.GetAssemblies();
+#endif
+
+            // Searching all the implementation of the class
+            var foundTypes = assemblies
+                .SelectMany(x => x.GetTypes())
+                .Where(x => x.IsClass && !x.IsAbstract && !x.ContainsGenericParameters 
+                    && targetType.IsAssignableFrom(x) && x != targetType)
+                .ToList();
+
+            // Caching for later
+            TypeCache[targetType] = foundTypes;
+
+            return foundTypes;
         }
-        
-        
+
+
         /// <summary>
         /// Gets all the classes of the entered type in the project.
         /// </summary>
