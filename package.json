@@ -1,6 +1,6 @@
 {
   "name": "games.carter.savemanager",
-  "version": "3.0.6",
+  "version": "3.0.7",
   "displayName": "Save Manager",
   "description": "A free, modular, scriptable object based local save system for Unity.",
   "unity": "2020.3",
@@ -14,12 +14,12 @@
     {
       "displayName": "Global Save Example",
       "description": "An example of a setup using the global save data.",
-      "path": "Carter Games/Save Manager/Samples~/Standard Global Save Example/"
+      "path": "Samples~/StandardGlobalSaveExample/"
     },
     {
       "displayName": "Save Slots Menu Example",
       "description": "An example of a UI for save slots, to create and edit them at runtime using the Save Slot API.",
-      "path": "Carter Games/Save Manager/Samples~/Save Slot Menu Example/"
+      "path": "Samples~/SaveSlotMenuExample/"
     }
   ],
   "author": {
